@@ -1,0 +1,79 @@
+---
+title: "Boids-StatTest"
+output: html_document
+---
+
+```{r}
+
+require(tidyverse)
+require(car)
+require(DescTools)
+require(dplyr)
+require(ggpubr)
+require(kableExtra)
+require(data.table)
+library(ez)
+library(car)
+
+
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+
+df_area <- read.csv("area vs fps - R.csv", header = TRUE)
+
+#reading a data frame of the given dataset
+
+
+#conducting one-way between-subject ANOVA on algorithm and fps
+anovatest <- aov(df_area$fps ~ as.factor(df_area$algorithm), data = df_area)
+  
+summary(anovatest)
+
+# Conducting Tukey's HSD 
+tHSD <- TukeyHSD(anovatest)
+print(tHSD)
+# Tukey's SCI plotted
+plot(tHSD)
+
+
+
+
+
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r}
+
+df_boids <- read.csv("boids vs fps - R.csv", header = TRUE)
+
+#reading a data frame of the given dataset
+
+
+#conducting one-way between-subject ANOVA on algorithm and fps
+anovatest <- aov(df_boids$fps ~ as.factor(df_boids$Algorithm), data = df_boids)
+  
+summary(anovatest)
+
+# Conducting Tukey's HSD 
+tHSD <- TukeyHSD(anovatest)
+print(tHSD)
+# Tukey's SCI plotted
+plot(tHSD)
+
+
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
